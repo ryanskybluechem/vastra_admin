@@ -43,7 +43,7 @@ export function MobileNav({ user }: { user: { name: string | null; email: string
       )}
 
       {/* Floating bottom bar + expandable drawer */}
-      <div className="fixed left-4 right-4 z-50" style={{ bottom: "calc(1.25rem + env(safe-area-inset-bottom, 0px))" }}>
+      <div className="fixed left-4 right-4 z-50" style={{ bottom: "calc(10px + env(safe-area-inset-bottom, 0px))" }}>
         {/* Drawer that expands up */}
         <div
           className={cn(
