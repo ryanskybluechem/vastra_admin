@@ -79,10 +79,6 @@ export async function getInvestorBankAccountsDecrypted(userId: string): Promise<
     return { accounts: [], debug: `RPC error: ${error.message} (code: ${error.code}) | Key: starts="${cleanKey.substring(0, 4)}" len=${cleanKey.length} ends="${cleanKey.substring(cleanKey.length - 4)}"` }
   }
 
-  if (error) {
-    return { accounts: [], debug: `RPC decryption error: ${error.message} (code: ${error.code})` }
-  }
-
   return { accounts: data || [], debug: null }
 }
 
