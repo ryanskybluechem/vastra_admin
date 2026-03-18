@@ -43,13 +43,19 @@ export function MobileNav({ user }: { user: { name: string | null; email: string
       )}
 
       {/* Floating bottom bar + expandable drawer */}
-      <div className="fixed left-4 right-4 z-50" style={{ bottom: "calc(10px + env(safe-area-inset-bottom, 0px))" }}>
+      <div className="fixed left-4 right-4 z-50" style={{ bottom: "calc(5px + env(safe-area-inset-bottom, 0px))" }}>
         {/* Drawer that expands up */}
         <div
           className={cn(
-            "bg-background border border-border rounded-[20px] shadow-lg overflow-hidden transition-all duration-300 ease-out",
+            "border border-white/[0.08] rounded-[20px] shadow-lg overflow-hidden transition-all duration-300 ease-out",
             open ? "max-h-[80vh]" : "max-h-[56px]"
           )}
+          style={{
+            background: "rgba(44, 44, 46, 0.72)",
+            backdropFilter: "blur(40px) saturate(180%)",
+            WebkitBackdropFilter: "blur(40px) saturate(180%)",
+            boxShadow: "0 4px 30px rgba(0, 0, 0, 0.3), inset 0 0.5px 0 rgba(255, 255, 255, 0.06)",
+          }}
         >
           {/* Expanded nav content */}
           {open && (
