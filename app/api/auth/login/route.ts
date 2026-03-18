@@ -14,7 +14,8 @@ export async function POST(req: Request) {
       await clearSession()
       return NextResponse.json({ error: "Access denied. Admin privileges required." }, { status: 403 })
     }
-    console.error("Login error:", error)
-    return NextResponse.json({ error: "Login failed. User not found." }, { status: 500 })
+    const msg = error instanceof Error ? error.message : "Unknown error"
+    console.error("Login error:", msg)
+    return NextResponse.json({ error: msg }, { status: 500 })
   }
 }

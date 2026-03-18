@@ -68,7 +68,11 @@ export async function loginAsAdmin(email: string): Promise<Session> {
     .eq("email", email)
     .single()
 
-  if (error || !user) throw new Error("User not found")
+  if (error) {
+    console.error("Supabase query error:", error.message, error.code, error.details)
+    throw new Error(`DB_ERROR: ${error.message}`)
+  }
+  if (!user) throw new Error("User not found")
   if (user.role !== "admin") throw new Error("ACCESS_DENIED")
 
   await createSession(user.id, user.email, user.name, user.role, user.entity_name)
