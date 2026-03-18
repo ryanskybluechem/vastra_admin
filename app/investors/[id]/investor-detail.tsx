@@ -2,7 +2,8 @@
 
 import { useRouter } from "next/navigation"
 import { motion } from "framer-motion"
-import { ArrowLeft, Building2, Mail, Phone, Shield, Calendar } from "lucide-react"
+import { useState } from "react"
+import { ArrowLeft, Building2, Mail, Phone, Shield, Calendar, Copy, Check } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
@@ -56,6 +57,26 @@ interface InvestorDetailContentProps {
   transactions: Transaction[]
   bankAccounts: BankAccount[]
   bankDebug?: string | null
+}
+
+function CopyRow({ label, value }: { label: string; value: string }) {
+  const [copied, setCopied] = useState(false)
+  const handleCopy = async () => {
+    await navigator.clipboard.writeText(value)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }
+  return (
+    <div className="flex items-center justify-between">
+      <span className="text-[12px] font-medium uppercase tracking-wider text-muted-foreground">{label}</span>
+      <div className="flex items-center gap-2">
+        <span className="text-[14px] font-mono font-medium tabular-nums">{value}</span>
+        <button onClick={handleCopy} className="p-1 rounded-md hover:bg-accent transition-colors text-muted-foreground hover:text-foreground">
+          {copied ? <Check className="h-3.5 w-3.5 text-emerald-500" /> : <Copy className="h-3.5 w-3.5" />}
+        </button>
+      </div>
+    </div>
+  )
 }
 
 export function InvestorDetailContent({ investor, investments, transactions, bankAccounts, bankDebug }: InvestorDetailContentProps) {
@@ -217,14 +238,8 @@ export function InvestorDetailContent({ investor, investments, transactions, ban
                     </div>
                     <p className="text-[13px] text-muted-foreground capitalize">{acct.account_type}</p>
                     <div className="space-y-1.5 pt-1">
-                      <div className="flex items-center justify-between">
-                        <span className="text-[12px] font-medium uppercase tracking-wider text-muted-foreground">Account</span>
-                        <span className="text-[14px] font-mono font-medium tabular-nums">{acct.account_number}</span>
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <span className="text-[12px] font-medium uppercase tracking-wider text-muted-foreground">Routing</span>
-                        <span className="text-[14px] font-mono font-medium tabular-nums">{acct.routing_number}</span>
-                      </div>
+                      <CopyRow label="Account" value={acct.account_number} />
+                      <CopyRow label="Routing" value={acct.routing_number} />
                     </div>
                   </motion.div>
                 ))
