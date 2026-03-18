@@ -10,6 +10,7 @@ const inter = Inter({ variable: "--font-sans", subsets: ["latin"], display: "swa
 
 export const viewport: Viewport = {
   viewportFit: "cover",
+  maximumScale: 1,
 }
 
 export const metadata: Metadata = {

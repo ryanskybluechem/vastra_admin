@@ -37,7 +37,7 @@ export function MobileNav({ user }: { user: { name: string | null; email: string
       {/* Backdrop */}
       {open && (
         <div
-          className="fixed inset-0 z-40 bg-black/40 backdrop-blur-xs transition-opacity"
+          className="fixed inset-0 z-40 bg-black/50 transition-opacity"
           onClick={() => setOpen(false)}
         />
       )}
@@ -58,9 +58,9 @@ export function MobileNav({ user }: { user: { name: string | null; email: string
               <div className="flex items-center justify-between px-4 py-3">
                 <div className="flex items-center gap-2.5">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="/vastra-logo.png" alt="VÄSTRA" width={28} height={28} className="rounded-[6px]" />
-                  <p className="text-[14px] font-semibold tracking-tight">
-                    VÄSTRA <span className="text-[10px] text-brand font-semibold tracking-wide ml-0.5">ADMIN</span>
+                  <img src="/vastra-logo.png" alt="VÄSTRA" width={36} height={36} className="rounded-[8px]" />
+                  <p className="text-[18px] font-semibold tracking-tight">
+                    VÄSTRA <span className="text-[16px] text-brand font-semibold tracking-wide ml-1">ADMIN</span>
                   </p>
                 </div>
                 <button
@@ -94,10 +94,10 @@ export function MobileNav({ user }: { user: { name: string | null; email: string
               {/* User profile */}
               <div className="border-t border-border mt-3 pt-3 px-2">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-full bg-brand/15 text-brand text-[12px] font-semibold">{initials}</div>
+                  <div className="flex h-9 w-9 items-center justify-center rounded-full bg-brand/15 text-brand text-[16px] font-semibold">{initials}</div>
                   <div className="flex-1 min-w-0">
-                    <p className="truncate text-[13px] font-medium">{user.name || user.email}</p>
-                    <p className="truncate text-[11px] text-muted-foreground">{user.email}</p>
+                    <p className="truncate text-[16px] font-medium">{user.name || user.email}</p>
+                    <p className="truncate text-[16px] text-muted-foreground">{user.email}</p>
                   </div>
                   <button onClick={handleLogout} className="p-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-accent transition-colors">
                     <LogOut className="h-4 w-4" />
@@ -113,8 +113,8 @@ export function MobileNav({ user }: { user: { name: string | null; email: string
               <div className="flex items-center gap-2.5">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src="/vastra-logo.png" alt="VÄSTRA" width={28} height={28} className="rounded-[6px]" />
-                <p className="text-[14px] font-semibold tracking-tight">
-                  VÄSTRA <span className="text-[10px] text-brand font-semibold tracking-wide ml-0.5">ADMIN</span>
+                <p className="text-[16px] font-semibold tracking-tight">
+                  VÄSTRA <span className="text-[16px] text-brand font-semibold tracking-wide ml-0.5">ADMIN</span>
                 </p>
               </div>
               <button
