@@ -50,11 +50,34 @@ export async function getInvestorTransactions(userId: string) {
 export async function getInvestorBankAccountsDecrypted(userId: string) {
   const supabase = createServerClient()
   const key = process.env.BANK_ENCRYPTION_KEY
-  if (!key) return []
 
+  console.log("[BANK] userId:", userId)
+  console.log("[BANK] key present:", !!key, key ? `(${key.length} chars)` : "(missing)")
+
+  if (!key) {
+    console.error("[BANK] BANK_ENCRYPTION_KEY is not set!")
+    return []
+  }
+
+  // First check if bank accounts even exist for this user
+  const { data: rawAccounts, error: rawError } = await supabase
+    .from("bank_accounts")
+    .select("id, bank_name, account_last_four")
+    .eq("user_id", userId)
+
+  console.log("[BANK] raw accounts:", rawAccounts?.length || 0, rawError ? `error: ${rawError.message}` : "no error")
+
+  if (!rawAccounts || rawAccounts.length === 0) {
+    return []
+  }
+
+  // Now try decryption
   const { data, error } = await supabase.rpc("get_decrypted_bank_accounts", { p_user_id: userId, p_key: key })
+
+  console.log("[BANK] decrypted result:", data?.length || 0, error ? `error: ${error.message}` : "no error")
+
   if (error) {
-    console.error("Bank decryption error:", error)
+    console.error("[BANK] decryption error:", error)
     return []
   }
   return data || []
