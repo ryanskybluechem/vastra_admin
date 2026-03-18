@@ -55,6 +55,8 @@ export async function getInvestorBankAccountsDecrypted(userId: string): Promise<
     return { accounts: [], debug: "BANK_ENCRYPTION_KEY env var is missing" }
   }
 
+  const cleanKey = key.trim()
+
   // First check if bank accounts even exist for this user
   const { data: rawAccounts, error: rawError } = await supabase
     .from("bank_accounts")
@@ -69,8 +71,13 @@ export async function getInvestorBankAccountsDecrypted(userId: string): Promise<
     return { accounts: [], debug: `No bank accounts found for user ${userId} (query returned 0 rows)` }
   }
 
-  // Now try decryption
-  const { data, error } = await supabase.rpc("get_decrypted_bank_accounts", { p_user_id: userId, p_key: key })
+  // Try decryption with trimmed key
+  const { data, error } = await supabase.rpc("get_decrypted_bank_accounts", { p_user_id: userId, p_key: cleanKey })
+
+  if (error) {
+    // Show key diagnostics to help debug
+    return { accounts: [], debug: `RPC error: ${error.message} (code: ${error.code}) | Key: starts="${cleanKey.substring(0, 4)}" len=${cleanKey.length} ends="${cleanKey.substring(cleanKey.length - 4)}"` }
+  }
 
   if (error) {
     return { accounts: [], debug: `RPC decryption error: ${error.message} (code: ${error.code})` }
