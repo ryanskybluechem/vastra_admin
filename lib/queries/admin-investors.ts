@@ -47,16 +47,12 @@ export async function getInvestorTransactions(userId: string) {
   return data || []
 }
 
-export async function getInvestorBankAccountsDecrypted(userId: string) {
+export async function getInvestorBankAccountsDecrypted(userId: string): Promise<{ accounts: { id: string; bank_name: string; account_type: string; account_number: string; routing_number: string; account_last_four: string; routing_last_four: string; is_primary: boolean; created_at: string }[]; debug: string | null }> {
   const supabase = createServerClient()
   const key = process.env.BANK_ENCRYPTION_KEY
 
-  console.log("[BANK] userId:", userId)
-  console.log("[BANK] key present:", !!key, key ? `(${key.length} chars)` : "(missing)")
-
   if (!key) {
-    console.error("[BANK] BANK_ENCRYPTION_KEY is not set!")
-    return []
+    return { accounts: [], debug: "BANK_ENCRYPTION_KEY env var is missing" }
   }
 
   // First check if bank accounts even exist for this user
@@ -65,22 +61,22 @@ export async function getInvestorBankAccountsDecrypted(userId: string) {
     .select("id, bank_name, account_last_four")
     .eq("user_id", userId)
 
-  console.log("[BANK] raw accounts:", rawAccounts?.length || 0, rawError ? `error: ${rawError.message}` : "no error")
+  if (rawError) {
+    return { accounts: [], debug: `DB query error: ${rawError.message} (code: ${rawError.code})` }
+  }
 
   if (!rawAccounts || rawAccounts.length === 0) {
-    return []
+    return { accounts: [], debug: `No bank accounts found for user ${userId} (query returned 0 rows)` }
   }
 
   // Now try decryption
   const { data, error } = await supabase.rpc("get_decrypted_bank_accounts", { p_user_id: userId, p_key: key })
 
-  console.log("[BANK] decrypted result:", data?.length || 0, error ? `error: ${error.message}` : "no error")
-
   if (error) {
-    console.error("[BANK] decryption error:", error)
-    return []
+    return { accounts: [], debug: `RPC decryption error: ${error.message} (code: ${error.code})` }
   }
-  return data || []
+
+  return { accounts: data || [], debug: null }
 }
 
 export async function updateInvestorProfile(userId: string, updates: { name?: string; entity_name?: string; phone?: string }) {

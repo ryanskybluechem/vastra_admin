@@ -55,9 +55,10 @@ interface InvestorDetailContentProps {
   investments: Investment[]
   transactions: Transaction[]
   bankAccounts: BankAccount[]
+  bankDebug?: string | null
 }
 
-export function InvestorDetailContent({ investor, investments, transactions, bankAccounts }: InvestorDetailContentProps) {
+export function InvestorDetailContent({ investor, investments, transactions, bankAccounts, bankDebug }: InvestorDetailContentProps) {
   const router = useRouter()
 
   return (
@@ -196,7 +197,12 @@ export function InvestorDetailContent({ investor, investments, transactions, ban
               animate="animate"
               className="grid grid-cols-1 md:grid-cols-2 gap-4"
             >
-              {bankAccounts.length === 0 ? (
+              {bankDebug && (
+                <div className="col-span-full rounded-xl border border-red-500/20 bg-red-500/5 p-4 text-[13px] text-red-400 font-mono">
+                  DEBUG: {bankDebug}
+                </div>
+              )}
+              {bankAccounts.length === 0 && !bankDebug ? (
                 <div className="ios-card p-6 col-span-full text-center text-muted-foreground">
                   No bank accounts on file
                 </div>

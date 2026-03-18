@@ -8,7 +8,7 @@ export default async function InvestorDetailPage({ params }: { params: Promise<{
   if (!session) redirect("/login")
 
   const { id } = await params
-  const [investor, investments, transactions, bankAccounts] = await Promise.all([
+  const [investor, investments, transactions, bankResult] = await Promise.all([
     getInvestorDetail(id),
     getInvestorInvestments(id),
     getInvestorTransactions(id),
@@ -17,5 +17,5 @@ export default async function InvestorDetailPage({ params }: { params: Promise<{
 
   if (!investor) notFound()
 
-  return <InvestorDetailContent investor={investor} investments={investments} transactions={transactions} bankAccounts={bankAccounts} />
+  return <InvestorDetailContent investor={investor} investments={investments} transactions={transactions} bankAccounts={bankResult.accounts} bankDebug={bankResult.debug} />
 }
