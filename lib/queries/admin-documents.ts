@@ -41,8 +41,12 @@ export async function uploadFile(file: File, userId: string): Promise<{ path: st
   const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_")
   const path = `${userId}/${timestamp}_${safeName}`
 
-  const { error } = await supabase.storage.from("documents").upload(path, file, {
-    contentType: file.type,
+  // Convert File to ArrayBuffer for server-side compatibility
+  const arrayBuffer = await file.arrayBuffer()
+  const buffer = Buffer.from(arrayBuffer)
+
+  const { error } = await supabase.storage.from("documents").upload(path, buffer, {
+    contentType: file.type || "application/octet-stream",
     upsert: false,
   })
   if (error) throw new Error(`Upload failed: ${error.message}`)
