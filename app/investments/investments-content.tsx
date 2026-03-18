@@ -69,7 +69,7 @@ export function InvestmentsContent({ investments, investors }: InvestmentsConten
     setCurrentValue("")
     setReturnPercent("")
     setStatus("")
-    setInvestedDate("")
+    setInvestedDate(new Date().toISOString().split("T")[0])
     setDescription("")
     setTargetReturn("")
     setLoanBalance("")

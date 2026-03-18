@@ -3,7 +3,7 @@ import Link from "next/link"
 /* eslint-disable @next/next/no-img-element */
 import { usePathname, useRouter } from "next/navigation"
 import { cn } from "@/lib/utils"
-import { LayoutDashboard, Users, Building2, ArrowLeftRight, FileText, Sparkles, Settings, LogOut } from "lucide-react"
+import { LayoutDashboard, Users, Building2, ArrowLeftRight, FileText, Sparkles, PenLine, CreditCard, Settings, LogOut } from "lucide-react"
 
 const navItems = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
@@ -12,6 +12,8 @@ const navItems = [
   { href: "/transactions", label: "Transactions", icon: ArrowLeftRight },
   { href: "/documents", label: "Documents", icon: FileText },
   { href: "/offerings", label: "Offerings", icon: Sparkles },
+  { href: "/e-signatures", label: "E-Signatures", icon: PenLine },
+  { href: "/payments", label: "Payments", icon: CreditCard },
   { href: "/settings", label: "Settings", icon: Settings },
 ]
 

@@ -180,6 +180,16 @@ export function InvestorDetailContent({ investor, investments, transactions, ban
 
           {/* Bank Accounts Tab */}
           <TabsContent value="bank-accounts">
+            <div className="mb-4 rounded-xl border border-amber-500/20 bg-amber-500/5 p-4 flex items-start gap-3">
+              <Shield className="h-5 w-5 text-amber-500 mt-0.5 shrink-0" />
+              <div>
+                <p className="text-[14px] font-semibold text-amber-600 dark:text-amber-400">Sensitive Data</p>
+                <p className="text-[13px] text-muted-foreground mt-0.5">
+                  Full account and routing numbers are shown below. This data is AES-256 encrypted at rest.
+                  OAuth verification will be required when enabled.
+                </p>
+              </div>
+            </div>
             <motion.div
               variants={staggerContainer}
               initial="initial"

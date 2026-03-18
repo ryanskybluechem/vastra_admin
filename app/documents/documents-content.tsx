@@ -62,7 +62,7 @@ export function DocumentsContent({ documents, investors }: DocumentsContentProps
     setType("")
     setCategory("")
     setInvestment("")
-    setDate("")
+    setDate(new Date().toISOString().split("T")[0])
     setStatus("")
     setSelectedFile(null)
     if (fileInputRef.current) fileInputRef.current.value = ""

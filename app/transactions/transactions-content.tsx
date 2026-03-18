@@ -57,7 +57,7 @@ export function TransactionsContent({ transactions, investors }: TransactionsCon
 
   function resetForm() {
     setUserId("")
-    setDate("")
+    setDate(new Date().toISOString().split("T")[0])
     setType("")
     setInvestment("")
     setAmount("")
