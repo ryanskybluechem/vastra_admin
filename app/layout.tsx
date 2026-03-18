@@ -1,4 +1,4 @@
-import type { Metadata } from "next"
+import type { Metadata, Viewport } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
 import { Providers } from "@/components/providers"
@@ -7,6 +7,10 @@ import { MobileNav } from "@/components/mobile-nav"
 import { getSession } from "@/lib/auth"
 
 const inter = Inter({ variable: "--font-sans", subsets: ["latin"], display: "swap" })
+
+export const viewport: Viewport = {
+  viewportFit: "cover",
+}
 
 export const metadata: Metadata = {
   title: "VÄSTRA Admin",

@@ -43,7 +43,7 @@ export function MobileNav({ user }: { user: { name: string | null; email: string
       )}
 
       {/* Floating bottom bar + expandable drawer */}
-      <div className="fixed bottom-5 left-4 right-4 z-50">
+      <div className="fixed left-4 right-4 z-50" style={{ bottom: "calc(1.25rem + env(safe-area-inset-bottom, 0px))" }}>
         {/* Drawer that expands up */}
         <div
           className={cn(
@@ -53,7 +53,24 @@ export function MobileNav({ user }: { user: { name: string | null; email: string
         >
           {/* Expanded nav content */}
           {open && (
-            <div className="px-2 pt-4 pb-2">
+            <div className="px-2 pt-2 pb-2">
+              {/* Header: app name left, close right */}
+              <div className="flex items-center justify-between px-4 py-3">
+                <div className="flex items-center gap-2.5">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src="/vastra-logo.png" alt="VÄSTRA" width={28} height={28} className="rounded-[6px]" />
+                  <p className="text-[14px] font-semibold tracking-tight">
+                    VÄSTRA <span className="text-[10px] text-brand font-semibold tracking-wide ml-0.5">ADMIN</span>
+                  </p>
+                </div>
+                <button
+                  onClick={() => setOpen(false)}
+                  className="p-2 rounded-xl text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
+                >
+                  <X className="h-5 w-5" />
+                </button>
+              </div>
+
               <nav className="space-y-0.5">
                 {navItems.map((item) => {
                   const isActive = pathname.startsWith(item.href)
@@ -91,21 +108,23 @@ export function MobileNav({ user }: { user: { name: string | null; email: string
           )}
 
           {/* Bottom bar: logo left, menu right */}
-          <div className="flex items-center justify-between px-4 h-[56px]">
-            <div className="flex items-center gap-2.5">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/vastra-logo.png" alt="VÄSTRA" width={28} height={28} className="rounded-[6px]" />
-              <p className="text-[14px] font-semibold tracking-tight">
-                VÄSTRA <span className="text-[10px] text-brand font-semibold tracking-wide ml-0.5">ADMIN</span>
-              </p>
+          {!open && (
+            <div className="flex items-center justify-between px-4 h-[56px]">
+              <div className="flex items-center gap-2.5">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/vastra-logo.png" alt="VÄSTRA" width={28} height={28} className="rounded-[6px]" />
+                <p className="text-[14px] font-semibold tracking-tight">
+                  VÄSTRA <span className="text-[10px] text-brand font-semibold tracking-wide ml-0.5">ADMIN</span>
+                </p>
+              </div>
+              <button
+                onClick={() => setOpen(true)}
+                className="p-2 rounded-xl text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
+              >
+                <Menu className="h-5 w-5" />
+              </button>
             </div>
-            <button
-              onClick={() => setOpen(!open)}
-              className="p-2 rounded-xl text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
-            >
-              {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-            </button>
-          </div>
+          )}
         </div>
       </div>
     </div>
