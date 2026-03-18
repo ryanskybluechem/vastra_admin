@@ -75,8 +75,8 @@ export async function getInvestorBankAccountsDecrypted(userId: string): Promise<
   const { data, error } = await supabase.rpc("get_decrypted_bank_accounts", { p_user_id: userId, p_key: cleanKey })
 
   if (error) {
-    // Show key diagnostics to help debug
-    return { accounts: [], debug: `RPC error: ${error.message} (code: ${error.code}) | Key: starts="${cleanKey.substring(0, 4)}" len=${cleanKey.length} ends="${cleanKey.substring(cleanKey.length - 4)}"` }
+    console.error("[BANK] decryption error:", error)
+    return { accounts: [], debug: `Decryption failed: ${error.message}` }
   }
 
   return { accounts: data || [], debug: null }
