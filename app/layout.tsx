@@ -24,10 +24,8 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
               <div className="hidden lg:block">
                 <AdminSidebar user={session.user} />
               </div>
-              <div className="flex-1 flex flex-col overflow-hidden">
-                <MobileNav user={session.user} />
-                <main className="flex-1 overflow-y-auto">{children}</main>
-              </div>
+              <main className="flex-1 overflow-y-auto pb-20 lg:pb-0">{children}</main>
+              <MobileNav user={session.user} />
             </div>
           ) : (
             children
