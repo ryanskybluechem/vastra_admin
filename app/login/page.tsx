@@ -47,7 +47,7 @@ export default function AdminLoginPage() {
     }
   }
 
-  const demoEmail = "ryan@vastra.co"
+  const demoEmail = "kelly@vastrapm.com"
 
   const fillDemo = () => {
     setEmail(demoEmail)
