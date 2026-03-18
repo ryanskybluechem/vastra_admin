@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useTransition } from "react"
+import { useState, useRef, useTransition } from "react"
 import { Header } from "@/components/header"
 import { DataTable } from "@/components/data-table"
 import { ConfirmDialog } from "@/components/confirm-dialog"
@@ -11,7 +11,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Plus, Pencil, Trash2, Loader2 } from "lucide-react"
+import { Plus, Pencil, Trash2, Loader2, Upload, FileText, Paperclip } from "lucide-react"
 import { formatDate } from "@/lib/format"
 import { createDocumentAction, updateDocumentAction, deleteDocumentAction } from "./actions"
 
@@ -44,6 +44,7 @@ export function DocumentsContent({ documents, investors }: DocumentsContentProps
   const [editing, setEditing] = useState<Record<string, unknown> | null>(null)
   const [deleteTarget, setDeleteTarget] = useState<Record<string, unknown> | null>(null)
   const [isPending, startTransition] = useTransition()
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
   // Form state
   const [userId, setUserId] = useState("")
@@ -53,7 +54,7 @@ export function DocumentsContent({ documents, investors }: DocumentsContentProps
   const [investment, setInvestment] = useState("")
   const [date, setDate] = useState("")
   const [status, setStatus] = useState("")
-  const [size, setSize] = useState("")
+  const [selectedFile, setSelectedFile] = useState<File | null>(null)
 
   function resetForm() {
     setUserId("")
@@ -63,7 +64,8 @@ export function DocumentsContent({ documents, investors }: DocumentsContentProps
     setInvestment("")
     setDate("")
     setStatus("")
-    setSize("")
+    setSelectedFile(null)
+    if (fileInputRef.current) fileInputRef.current.value = ""
   }
 
   function openCreate() {
@@ -81,7 +83,8 @@ export function DocumentsContent({ documents, investors }: DocumentsContentProps
     setInvestment(String(item.investment || ""))
     setDate(String(item.date || ""))
     setStatus(String(item.status || ""))
-    setSize(String(item.size || ""))
+    setSelectedFile(null)
+    if (fileInputRef.current) fileInputRef.current.value = ""
     setDialogOpen(true)
   }
 
@@ -95,7 +98,9 @@ export function DocumentsContent({ documents, investors }: DocumentsContentProps
     fd.set("investment", investment)
     fd.set("date", date)
     fd.set("status", status)
-    fd.set("size", size)
+    if (selectedFile) {
+      fd.set("file", selectedFile)
+    }
 
     startTransition(async () => {
       if (editing) {
@@ -112,14 +117,20 @@ export function DocumentsContent({ documents, investors }: DocumentsContentProps
       key: "name",
       label: "Name",
       render: (item: Record<string, unknown>) => (
-        <span className="font-semibold">{String(item.name || "")}</span>
+        <div className="flex items-center gap-2">
+          <FileText className="h-4 w-4 text-muted-foreground shrink-0" />
+          <span className="font-semibold">{String(item.name || "")}</span>
+          {!!item.file_path && (
+            <Paperclip className="h-3 w-3 text-brand shrink-0" />
+          )}
+        </div>
       ),
     },
     {
       key: "user_id",
       label: "Investor",
       render: (item: Record<string, unknown>) => {
-        const users = (item as any).users
+        const users = (item as Record<string, Record<string, string>>).users
         return users?.name || users?.email || "Unknown"
       },
     },
@@ -135,6 +146,13 @@ export function DocumentsContent({ documents, investors }: DocumentsContentProps
       key: "date",
       label: "Date",
       render: (item: Record<string, unknown>) => item.date ? formatDate(String(item.date)) : "",
+    },
+    {
+      key: "size",
+      label: "Size",
+      render: (item: Record<string, unknown>) => (
+        <span className="text-muted-foreground text-xs">{String(item.size || "—")}</span>
+      ),
     },
     {
       key: "status",
@@ -240,10 +258,52 @@ export function DocumentsContent({ documents, investors }: DocumentsContentProps
                 </Select>
               </div>
             </div>
+
+            {/* File Upload */}
             <div className="grid gap-2">
-              <Label>Size (optional)</Label>
-              <Input value={size} onChange={(e) => setSize(e.target.value)} placeholder="e.g. 2.4 MB" />
+              <Label>File Attachment</Label>
+              <div
+                className="relative flex items-center gap-3 rounded-lg border border-dashed border-border p-3 cursor-pointer hover:bg-accent/50 transition-colors"
+                onClick={() => fileInputRef.current?.click()}
+              >
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-brand/10">
+                  <Upload className="h-5 w-5 text-brand" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  {selectedFile ? (
+                    <>
+                      <p className="text-sm font-medium truncate">{selectedFile.name}</p>
+                      <p className="text-xs text-muted-foreground">
+                        {selectedFile.size >= 1_000_000
+                          ? `${(selectedFile.size / 1_000_000).toFixed(1)} MB`
+                          : `${Math.round(selectedFile.size / 1_000)} KB`
+                        }
+                      </p>
+                    </>
+                  ) : (
+                    <>
+                      <p className="text-sm font-medium">
+                        {editing?.file_path ? "Replace file" : "Choose a file"}
+                      </p>
+                      <p className="text-xs text-muted-foreground">PDF, DOC, XLS, or any file type</p>
+                    </>
+                  )}
+                </div>
+                {!!editing?.file_path && !selectedFile && (
+                  <Badge variant="outline" className="text-xs text-brand border-brand/30">Has file</Badge>
+                )}
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  className="hidden"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0]
+                    if (file) setSelectedFile(file)
+                  }}
+                />
+              </div>
             </div>
+
             <DialogFooter>
               <Button type="button" variant="ghost" onClick={() => setDialogOpen(false)}>Cancel</Button>
               <Button type="submit" disabled={isPending}>
