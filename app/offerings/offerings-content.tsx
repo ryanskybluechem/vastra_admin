@@ -20,7 +20,8 @@ import {
 import { ConfirmDialog } from "@/components/confirm-dialog"
 import { formatCurrency, formatDate } from "@/lib/format"
 import { createOfferingAction, updateOfferingAction, deleteOfferingAction } from "./actions"
-import { Plus, Pencil, Trash2, X, Loader2 } from "lucide-react"
+import { Plus, Pencil, Trash2, X, Loader2, ExternalLink } from "lucide-react"
+import Link from "next/link"
 
 interface Offering {
   id: string
@@ -169,7 +170,12 @@ export function OfferingsContent({ offerings }: OfferingsContentProps) {
     {
       key: "name",
       label: "Name",
-      render: (item: Offering) => <span className="font-semibold">{item.name}</span>,
+      render: (item: Offering) => (
+        <Link href={`/offerings/${item.id}`} className="font-semibold text-brand hover:underline flex items-center gap-1.5">
+          {item.name}
+          <ExternalLink className="h-3 w-3 opacity-50" />
+        </Link>
+      ),
     },
     { key: "type", label: "Type" },
     { key: "location", label: "Location" },

@@ -22,6 +22,22 @@ export async function updateOffering(id: string, updates: Record<string, unknown
   if (error) throw new Error(error.message)
 }
 
+export async function getOfferingDetail(id: string) {
+  const supabase = createServerClient()
+  const { data } = await supabase.from("offerings").select("*").eq("id", id).single()
+  return data
+}
+
+export async function getOfferingInvestors(offeringName: string) {
+  const supabase = createServerClient()
+  const { data } = await supabase
+    .from("investments")
+    .select("*, users(name, email)")
+    .eq("name", offeringName)
+    .order("invested_date", { ascending: false })
+  return data || []
+}
+
 export async function deleteOffering(id: string) {
   const supabase = createServerClient()
   const { error } = await supabase.from("offerings").delete().eq("id", id)
