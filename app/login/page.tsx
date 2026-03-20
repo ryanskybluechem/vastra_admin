@@ -131,7 +131,7 @@ export default function AdminLoginPage() {
           </p>
 
           {(unauthorized || error) && (
-            <div className="mb-6 flex items-center gap-3 rounded-[12px] border border-red-500/20 bg-red-500/10 px-4 py-3">
+            <div className="mb-6 flex items-center gap-3 rounded-2xl border border-red-500/20 bg-red-500/10 px-4 py-3">
               <ShieldAlert className="h-5 w-5 text-red-400 shrink-0" />
               <p className="text-[16px] text-red-400">
                 {error || "Access denied. Admin privileges required."}
@@ -158,7 +158,7 @@ export default function AdminLoginPage() {
             <button
               type="submit"
               disabled={loading || !email}
-              className="w-full h-12 rounded-[12px] bg-brand hover:bg-brand/90 text-white font-semibold text-[16px] flex items-center justify-center gap-2 transition-all disabled:opacity-40"
+              className="w-full h-12 rounded-full bg-brand/90 hover:bg-brand/80 backdrop-blur-xl border border-white/[0.12] shadow-[inset_0_0.5px_0_rgba(255,255,255,0.15),0_1px_3px_rgba(0,0,0,0.1)] text-white font-semibold text-[16px] flex items-center justify-center gap-2 transition-all disabled:opacity-40"
             >
               {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <>Sign In <ArrowRight className="h-4 w-4" /></>}
             </button>
@@ -167,7 +167,7 @@ export default function AdminLoginPage() {
           {/* Demo hint */}
           <div className="mt-8 text-center">
             <p className="text-[16px] text-white/30 mb-2">Try the demo — Login using</p>
-            <div className="inline-flex items-center rounded-[10px] border border-brand/20 overflow-hidden" style={{ background: "rgba(17, 17, 19, 0.9)" }}>
+            <div className="inline-flex items-center rounded-full border border-brand/20 overflow-hidden" style={{ background: "rgba(17, 17, 19, 0.9)" }}>
               <button
                 type="button"
                 onClick={fillDemo}
