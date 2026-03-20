@@ -5,6 +5,7 @@ import { Providers } from "@/components/providers"
 import { AdminSidebar } from "@/components/admin-sidebar"
 import { MobileNav } from "@/components/mobile-nav"
 import { getSession } from "@/lib/auth"
+import { BackgroundTexture } from "@/components/background-texture"
 
 const inter = Inter({ variable: "--font-sans", subsets: ["latin"], display: "swap" })
 
@@ -26,10 +27,11 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
         <Providers>
           {session ? (
             <div className="flex h-screen overflow-hidden">
-              <div className="hidden lg:block">
+              <BackgroundTexture />
+              <div className="hidden lg:block relative z-10">
                 <AdminSidebar user={session.user} />
               </div>
-              <main className="flex-1 overflow-y-auto pb-20 lg:pb-0">{children}</main>
+              <main className="relative z-10 flex-1 overflow-y-auto pb-20 lg:pb-0">{children}</main>
               <MobileNav user={session.user} />
             </div>
           ) : (

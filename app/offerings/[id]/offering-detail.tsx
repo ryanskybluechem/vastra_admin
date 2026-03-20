@@ -65,10 +65,10 @@ function statusBadge(status: string) {
 
 function StatCard({ icon: Icon, label, value, sublabel }: { icon: React.ElementType; label: string; value: string; sublabel?: string }) {
   return (
-    <div className="rounded-xl border border-border bg-card p-4">
+    <div className="ios-card p-5">
       <div className="flex items-center gap-2 mb-2">
         <Icon className="h-4 w-4 text-muted-foreground" />
-        <span className="text-[13px] font-medium text-muted-foreground uppercase tracking-wider">{label}</span>
+        <span className="text-[12px] font-medium text-muted-foreground uppercase tracking-wider">{label}</span>
       </div>
       <p className="text-[22px] font-bold tabular-nums">{value}</p>
       {sublabel && <p className="text-[13px] text-muted-foreground mt-0.5">{sublabel}</p>}
@@ -132,7 +132,7 @@ export function OfferingDetailContent({ offering, investors }: { offering: Offer
 
       <div className="px-6 lg:px-8">
         {/* Key Metrics */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
           <StatCard
             icon={Target}
             label="Target Return"
@@ -158,7 +158,7 @@ export function OfferingDetailContent({ offering, investors }: { offering: Offer
 
         {/* Funding Progress Bar */}
         {offering.fund_size && offering.fund_size > 0 && (
-          <div className="rounded-xl border border-border bg-card p-5 mb-6">
+          <div className="ios-card p-5 mb-6">
             <div className="flex items-center justify-between mb-3">
               <span className="text-[14px] font-semibold">Funding Progress</span>
               <span className="text-[14px] text-muted-foreground">
@@ -207,7 +207,7 @@ export function OfferingDetailContent({ offering, investors }: { offering: Offer
           <TabsContent value="overview">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {/* Description / Offering Memorandum */}
-              <div className="rounded-xl border border-border bg-card p-5">
+              <div className="ios-card p-5">
                 <h3 className="text-[16px] font-semibold mb-3 flex items-center gap-2">
                   <FileText className="h-4 w-4 text-brand" />
                   Offering Memorandum
@@ -218,7 +218,7 @@ export function OfferingDetailContent({ offering, investors }: { offering: Offer
               </div>
 
               {/* Investment Highlights */}
-              <div className="rounded-xl border border-border bg-card p-5">
+              <div className="ios-card p-5">
                 <h3 className="text-[16px] font-semibold mb-3 flex items-center gap-2">
                   <Sparkles className="h-4 w-4 text-brand" />
                   Investment Highlights
@@ -238,7 +238,7 @@ export function OfferingDetailContent({ offering, investors }: { offering: Offer
               </div>
 
               {/* Deal Details */}
-              <div className="rounded-xl border border-border bg-card p-5 lg:col-span-2">
+              <div className="ios-card p-5 lg:col-span-2">
                 <h3 className="text-[16px] font-semibold mb-4 flex items-center gap-2">
                   <Building2 className="h-4 w-4 text-brand" />
                   Deal Details
@@ -283,27 +283,27 @@ export function OfferingDetailContent({ offering, investors }: { offering: Offer
 
           {/* Financials Tab */}
           <TabsContent value="financials">
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
               <StatCard icon={Users} label="Total Investors" value={String(investors.length)} />
               <StatCard icon={DollarSign} label="Total Invested" value={totalInvested > 0 ? formatCompactNumber(totalInvested) : "--"} />
               <StatCard icon={TrendingUp} label="Current Value" value={totalCurrentValue > 0 ? formatCompactNumber(totalCurrentValue) : "--"} />
               <StatCard icon={BarChart3} label="Avg. Return" value={avgReturn !== 0 ? `${avgReturn.toFixed(1)}%` : "--"} />
             </div>
 
-            <div className="rounded-xl border border-border bg-card p-5">
+            <div className="ios-card p-5">
               <h3 className="text-[16px] font-semibold mb-4">Financial Projections</h3>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-                <div className="rounded-xl border border-border p-4 text-center">
+                <div className="ios-card p-5 text-center">
                   <p className="text-[12px] font-medium uppercase tracking-wider text-muted-foreground mb-2">Target IRR</p>
                   <p className="text-[28px] font-bold text-brand">{offering.target_return || "--"}</p>
                   <p className="text-[13px] text-muted-foreground mt-1">Internal Rate of Return</p>
                 </div>
-                <div className="rounded-xl border border-border p-4 text-center">
+                <div className="ios-card p-5 text-center">
                   <p className="text-[12px] font-medium uppercase tracking-wider text-muted-foreground mb-2">Equity Multiple</p>
                   <p className="text-[28px] font-bold text-foreground">1.8-2.2x</p>
                   <p className="text-[13px] text-muted-foreground mt-1">Projected Multiple</p>
                 </div>
-                <div className="rounded-xl border border-border p-4 text-center">
+                <div className="ios-card p-5 text-center">
                   <p className="text-[12px] font-medium uppercase tracking-wider text-muted-foreground mb-2">Hold Period</p>
                   <p className="text-[28px] font-bold text-foreground">3-5 yrs</p>
                   <p className="text-[13px] text-muted-foreground mt-1">Expected Duration</p>
@@ -311,7 +311,7 @@ export function OfferingDetailContent({ offering, investors }: { offering: Offer
               </div>
             </div>
 
-            <div className="rounded-xl border border-border bg-card p-5 mt-4">
+            <div className="ios-card p-5 mt-4">
               <h3 className="text-[16px] font-semibold mb-4">Capital Structure</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="flex items-center justify-between py-3 border-b border-border">
@@ -338,7 +338,7 @@ export function OfferingDetailContent({ offering, investors }: { offering: Offer
 
           {/* Media Tab */}
           <TabsContent value="media">
-            <div className="rounded-xl border border-border bg-card p-5">
+            <div className="ios-card p-5">
               <h3 className="text-[16px] font-semibold mb-4 flex items-center gap-2">
                 <ImageIcon className="h-4 w-4 text-brand" />
                 Property Photos & Videos
@@ -360,14 +360,14 @@ export function OfferingDetailContent({ offering, investors }: { offering: Offer
               </p>
             </div>
 
-            <div className="rounded-xl border border-border bg-card p-5 mt-4">
+            <div className="ios-card p-5 mt-4">
               <h3 className="text-[16px] font-semibold mb-4 flex items-center gap-2">
                 <FileText className="h-4 w-4 text-brand" />
                 Documents
               </h3>
               <div className="space-y-2">
                 {["Offering Memorandum (PPM)", "Subscription Agreement", "Operating Agreement", "Financial Projections"].map((doc) => (
-                  <div key={doc} className="flex items-center justify-between py-3 px-4 rounded-xl border border-border hover:bg-accent/50 transition-colors">
+                  <div key={doc} className="flex items-center justify-between py-3.5 px-4 rounded-2xl border border-border hover:bg-accent/50 transition-colors">
                     <div className="flex items-center gap-3">
                       <FileText className="h-4 w-4 text-muted-foreground" />
                       <span className="text-[14px] font-medium">{doc}</span>
@@ -381,7 +381,7 @@ export function OfferingDetailContent({ offering, investors }: { offering: Offer
 
           {/* Investors Tab */}
           <TabsContent value="investors">
-            <div className="rounded-xl border border-border bg-card overflow-hidden">
+            <div className="ios-card overflow-hidden">
               {investors.length > 0 ? (
                 <Table>
                   <TableHeader>

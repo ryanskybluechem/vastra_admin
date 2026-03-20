@@ -56,7 +56,7 @@ export function DataTable<T extends Record<string, unknown>>({
             placeholder="Search..."
             value={search}
             onChange={(e) => { setSearch(e.target.value); setPage(0) }}
-            className="pl-9 h-10 rounded-[10px] bg-accent/50 border-0"
+            className="pl-9 h-10 rounded-xl bg-accent/50 border-0"
           />
         </div>
       </div>
@@ -64,7 +64,7 @@ export function DataTable<T extends Record<string, unknown>>({
         <TableHeader>
           <TableRow>
             {columns.map((col) => (
-              <TableHead key={col.key} className="text-[12px] font-semibold uppercase tracking-wider text-muted-foreground">
+              <TableHead key={col.key} className="text-[12px] font-semibold uppercase tracking-wider text-muted-foreground h-12 px-4">
                 {col.label}
               </TableHead>
             ))}
@@ -86,12 +86,12 @@ export function DataTable<T extends Record<string, unknown>>({
                 onClick={() => onRowClick?.(item)}
               >
                 {columns.map((col) => (
-                  <TableCell key={col.key} className="text-[14px]">
+                  <TableCell key={col.key} className="text-[14px] px-4 py-3.5">
                     {col.render ? col.render(item) : String(item[col.key] ?? "")}
                   </TableCell>
                 ))}
                 {actions && (
-                  <TableCell className="text-right" onClick={(e) => e.stopPropagation()}>
+                  <TableCell className="text-right px-4 py-3.5" onClick={(e) => e.stopPropagation()}>
                     {actions(item)}
                   </TableCell>
                 )}

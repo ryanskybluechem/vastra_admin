@@ -65,7 +65,7 @@ export function DashboardContent({ stats, recentTransactions, allocation }: Dash
         {/* Allocation Chart + Recent Transactions */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Allocation Pie Chart */}
-          <motion.div variants={staggerChild} initial="initial" animate="animate" className="ios-card p-6">
+          <motion.div variants={staggerChild} initial="initial" animate="animate" className="ios-card p-5">
             <h2 className="text-[14px] font-semibold uppercase tracking-wider text-muted-foreground mb-4">
               Allocation Breakdown
             </h2>

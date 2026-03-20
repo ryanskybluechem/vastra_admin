@@ -25,8 +25,8 @@ export function ESignaturesContent() {
       <Header title="E-Signatures" subtitle="Manage DocuSign envelopes and signature requests" />
       <div className="px-6 lg:px-8 pb-8">
         {/* Integration Status Banner */}
-        <div className="mb-6 rounded-xl border border-brand/20 bg-brand/5 p-5 flex items-start gap-4">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand/10 shrink-0">
+        <div className="mb-6 rounded-2xl border border-brand/20 bg-brand/5 p-5 flex items-start gap-4">
+          <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-brand/10 shrink-0">
             <PenLine className="h-5 w-5 text-brand" />
           </div>
           <div className="flex-1">
@@ -53,7 +53,7 @@ export function ESignaturesContent() {
             const StatusIcon = cfg.icon
             return (
               <div key={env.id} className="ios-card p-4 flex items-center gap-4">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-muted shrink-0">
+                <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-muted shrink-0">
                   <PenLine className="h-5 w-5 text-muted-foreground" />
                 </div>
                 <div className="flex-1 min-w-0">

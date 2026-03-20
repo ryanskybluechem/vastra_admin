@@ -20,8 +20,8 @@ export function PaymentsContent() {
       <Header title="Payments" subtitle="QuickBooks integration for investor payments and distributions" />
       <div className="px-6 lg:px-8 pb-8">
         {/* Integration Status Banner */}
-        <div className="mb-6 rounded-xl border border-brand/20 bg-brand/5 p-5 flex items-start gap-4">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand/10 shrink-0">
+        <div className="mb-6 rounded-2xl border border-brand/20 bg-brand/5 p-5 flex items-start gap-4">
+          <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-brand/10 shrink-0">
             <CreditCard className="h-5 w-5 text-brand" />
           </div>
           <div className="flex-1">
@@ -42,17 +42,17 @@ export function PaymentsContent() {
 
         {/* Summary Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-          <div className="ios-card p-4">
+          <div className="ios-card p-5">
             <p className="text-[12px] font-semibold uppercase tracking-wider text-muted-foreground mb-1">Pending Distributions</p>
             <p className="text-[24px] font-bold">{formatCurrency(43750)}</p>
             <p className="text-[12px] text-muted-foreground mt-1">3 pending payments</p>
           </div>
-          <div className="ios-card p-4">
+          <div className="ios-card p-5">
             <p className="text-[12px] font-semibold uppercase tracking-wider text-muted-foreground mb-1">Outstanding Capital Calls</p>
             <p className="text-[24px] font-bold">{formatCurrency(25000)}</p>
             <p className="text-[12px] text-muted-foreground mt-1">1 outstanding</p>
           </div>
-          <div className="ios-card p-4">
+          <div className="ios-card p-5">
             <p className="text-[12px] font-semibold uppercase tracking-wider text-muted-foreground mb-1">This Month</p>
             <p className="text-[24px] font-bold">{formatCurrency(50000)}</p>
             <p className="text-[12px] text-muted-foreground mt-1">4 transactions</p>
@@ -63,8 +63,8 @@ export function PaymentsContent() {
         <h3 className="text-[13px] font-semibold uppercase tracking-wider text-muted-foreground mb-3">Recent Payments</h3>
         <div className="space-y-3">
           {mockPayments.map((payment) => (
-            <div key={payment.id} className="ios-card p-4 flex items-center gap-4">
-              <div className={`flex h-10 w-10 items-center justify-center rounded-xl shrink-0 ${
+            <div key={payment.id} className="ios-card p-5 flex items-center gap-4">
+              <div className={`flex h-10 w-10 items-center justify-center rounded-2xl shrink-0 ${
                 payment.type === "outgoing" ? "bg-emerald-500/10" : "bg-blue-500/10"
               }`}>
                 {payment.type === "outgoing" ? (

@@ -202,7 +202,7 @@ export function InvestorDetailContent({ investor, investments, transactions, ban
 
           {/* Bank Accounts Tab */}
           <TabsContent value="bank-accounts">
-            <div className="mb-4 rounded-xl border border-amber-500/20 bg-amber-500/5 p-4 flex items-start gap-3">
+            <div className="mb-4 rounded-2xl border border-amber-500/20 bg-amber-500/5 p-4 flex items-start gap-3">
               <Shield className="h-5 w-5 text-amber-500 mt-0.5 shrink-0" />
               <div>
                 <p className="text-[14px] font-semibold text-amber-600 dark:text-amber-400">Sensitive Data</p>
@@ -219,7 +219,7 @@ export function InvestorDetailContent({ investor, investments, transactions, ban
               className="grid grid-cols-1 md:grid-cols-2 gap-4"
             >
               {bankDebug && (
-                <div className="col-span-full rounded-xl border border-red-500/20 bg-red-500/5 p-4 text-[13px] text-red-400 font-mono">
+                <div className="col-span-full rounded-2xl border border-red-500/20 bg-red-500/5 p-4 text-[13px] text-red-400 font-mono">
                   DEBUG: {bankDebug}
                 </div>
               )}
@@ -229,7 +229,7 @@ export function InvestorDetailContent({ investor, investments, transactions, ban
                 </div>
               ) : (
                 bankAccounts.map((acct) => (
-                  <motion.div key={acct.id} variants={staggerChild} className="ios-card p-5 space-y-3">
+                  <motion.div key={acct.id} variants={staggerChild} className="ios-card p-5 space-y-3.5">
                     <div className="flex items-center justify-between">
                       <h3 className="text-[16px] font-semibold">{acct.bank_name}</h3>
                       {acct.is_primary && (

@@ -138,7 +138,26 @@
   .ios-card {
     background: var(--card);
     border: 1px solid var(--border);
-    border-radius: 1rem;
+    border-radius: var(--radius-2xl);
+  }
+  .ios-grouped {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-2xl);
+    overflow: hidden;
+  }
+  .ios-grouped > *:not(:last-child) {
+    border-bottom: 1px solid var(--border);
+  }
+  .ios-row {
+    padding: 0.875rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    transition: background-color 0.15s ease;
+  }
+  .ios-row:active {
+    background-color: var(--accent);
   }
 }
 
